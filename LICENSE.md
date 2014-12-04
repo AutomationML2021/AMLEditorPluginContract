@@ -1,4 +1,5 @@
 AutomationML Editor Plugin Contract Public License, Version 1.0
+===============================================================
 
 Copyright (C) AutomationML e.V.
 
