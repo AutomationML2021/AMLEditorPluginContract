@@ -1,0 +1,16 @@
+D:\Benutzer\Prinz\Dokumente\GitHub\AMLEditorPluginContract\Templates\HelloAmlPlugin\obj\Release\HelloAml.baml
+D:\Benutzer\Prinz\Dokumente\GitHub\AMLEditorPluginContract\Templates\HelloAmlPlugin\obj\Release\HelloAml.g.cs
+D:\Benutzer\Prinz\Dokumente\GitHub\AMLEditorPluginContract\Templates\HelloAmlPlugin\obj\Release\AMLEditorPlugin_MarkupCompile.cache
+D:\Benutzer\Prinz\Dokumente\GitHub\AMLEditorPluginContract\Templates\HelloAmlPlugin\obj\Release\AMLEditorPlugin.g.resources
+D:\Benutzer\Prinz\Dokumente\GitHub\AMLEditorPluginContract\Templates\HelloAmlPlugin\obj\Release\AMLEditorPlugin.Properties.Resources.resources
+D:\Benutzer\Prinz\Dokumente\GitHub\AMLEditorPluginContract\Templates\HelloAmlPlugin\obj\Release\HelloAmlPlugin.csproj.GenerateResource.Cache
+D:\Benutzer\Prinz\Dokumente\GitHub\AMLEditorPluginContract\Templates\HelloAmlPlugin\bin\Release\AMLEditorPlugin.dll.config
+D:\Benutzer\Prinz\Dokumente\GitHub\AMLEditorPluginContract\Templates\HelloAmlPlugin\bin\Release\AMLEditorPlugin.dll
+D:\Benutzer\Prinz\Dokumente\GitHub\AMLEditorPluginContract\Templates\HelloAmlPlugin\bin\Release\AMLEditorPlugin.pdb
+D:\Benutzer\Prinz\Dokumente\GitHub\AMLEditorPluginContract\Templates\HelloAmlPlugin\bin\Release\Altova.dll
+D:\Benutzer\Prinz\Dokumente\GitHub\AMLEditorPluginContract\Templates\HelloAmlPlugin\bin\Release\AltovaXML.dll
+D:\Benutzer\Prinz\Dokumente\GitHub\AMLEditorPluginContract\Templates\HelloAmlPlugin\bin\Release\AMLEditorPlugin.Contracts.dll
+D:\Benutzer\Prinz\Dokumente\GitHub\AMLEditorPluginContract\Templates\HelloAmlPlugin\bin\Release\AMLEngine.dll
+D:\Benutzer\Prinz\Dokumente\GitHub\AMLEditorPluginContract\Templates\HelloAmlPlugin\bin\Release\AMLEngineExtensions.dll
+D:\Benutzer\Prinz\Dokumente\GitHub\AMLEditorPluginContract\Templates\HelloAmlPlugin\obj\Release\AMLEditorPlugin.dll
+D:\Benutzer\Prinz\Dokumente\GitHub\AMLEditorPluginContract\Templates\HelloAmlPlugin\obj\Release\AMLEditorPlugin.pdb
