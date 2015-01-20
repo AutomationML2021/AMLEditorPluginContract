@@ -4,18 +4,17 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{6D810AEF-0A1A-4962-A040-D139F7F80659}</ProjectGuid>
+    <ProjectGuid>{535F9554-2D89-46E6-835A-4BE32F3619A4}</ProjectGuid>
     <OutputType>library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>AMLEditorPlugin</RootNamespace>
-    <AssemblyName>AMLEditorPlugin</AssemblyName>
+    <AssemblyName>CreateElementPlugin</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <WarningLevel>4</WarningLevel>
     <TargetFrameworkProfile />
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
-    <RestorePackages>true</RestorePackages>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -39,51 +38,62 @@
     </DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Altova">
+    <Reference Include="Altova, Version=1.0.5217.15909, Culture=neutral, PublicKeyToken=994749c2bff1fea2, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>packages\AMLEngine.2.1.2.1\lib\net40\Altova.dll</HintPath>
     </Reference>
-    <Reference Include="AltovaXML">
+    <Reference Include="AltovaXML, Version=1.0.5217.15909, Culture=neutral, PublicKeyToken=994749c2bff1fea2, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>packages\AMLEngine.2.1.2.1\lib\net40\AltovaXML.dll</HintPath>
     </Reference>
-    <Reference Include="AMLEditorPlugin.Contracts">
+    <Reference Include="AMLEditorPlugin.Contracts, Version=1.0.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>packages\AMLEditorPluginContract.1.0.2.0\lib\net40\AMLEditorPlugin.Contracts.dll</HintPath>
     </Reference>
-    <Reference Include="AMLEngine">
+    <Reference Include="AMLEngine, Version=2.1.2.0, Culture=neutral, PublicKeyToken=994749c2bff1fea2, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>packages\AMLEngine.2.1.2.1\lib\net40\AMLEngine.dll</HintPath>
     </Reference>
-    <Reference Include="AMLEngineExtensions">
+    <Reference Include="AMLEngineExtensions, Version=2.1.2.0, Culture=neutral, PublicKeyToken=994749c2bff1fea2, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>packages\AMLEngine.2.1.2.1\lib\net40\AMLEngineExtensions.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Xaml">
       <RequiredTargetFramework>4.0</RequiredTargetFramework>
     </Reference>
+    <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
-    <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
     <Page Include="About.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="HelloAml.xaml">
+    <Page Include="CreateElementUI.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
     <Compile Include="About.xaml.cs">
       <DependentUpon>About.xaml</DependentUpon>
     </Compile>
-    <Compile Include="HelloAml.xaml.cs">
-      <DependentUpon>HelloAml.xaml</DependentUpon>
+    <Compile Include="CreateElementUI.xaml.cs">
+      <DependentUpon>CreateElementUI.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CreateElementPlugin.cs" />
+    <Compile Include="CreateElementViewModel.cs" />
+    <Compile Include="ElementViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -101,7 +111,6 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <None Include="app.config" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

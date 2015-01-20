@@ -1,53 +1,37 @@
 ﻿// *********************************************************************** Assembly :
-// AMLEditorPlugin Author : Josef Prinz Created : 01-19-2015
+// CreateElementPlugin Author : Josef Prinz Created : 12-08-2014
 // 
-// Last Modified By : Josef Prinz Last Modified On : 01-20-2015 ***********************************************************************
-// <copyright file="HelloAml.xaml.cs" company="AutomationML e.V.">
-//     Copyright (c) AutomationML e.V.. All rights reserved.
+// Last Modified By : Josef Prinz Last Modified On : 12-09-2014 ***********************************************************************
+// <copyright file="CreateElementPlugin.cs" company="AutomationML e.V.">
+//     Copyright (c) inpro. All rights reserved.
 // </copyright>
 // <summary>
 // </summary>
 // ***********************************************************************
-
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.Composition;
-using System.Windows.Controls;
+using System.Threading;
+using System.Windows.Threading;
 using AMLEditorPlugin.Contracts;
-using AMLEngineExtensions;
 
 /// <summary>
-/// The AMLEditorPlugin namespace.
+/// The AutomationML.Plugin.Examples namespace.
 /// </summary>
 namespace AMLEditorPlugin
 {
     /// <summary>
-    /// HelloAml is an example Plugin, which implements the IAMLEditorView Interface. The Plugin is
-    /// a UserControl, which is managed by the AutomationML Editors Window- and Docking - Manager.
-    /// The Export Attribute enables the AutomationML Editor to load the Plugin with the <a
-    /// href="http://msdn.microsoft.com/en-us/library/dd460648%28v=vs.110%29.aspx">Microsoft Managed
-    /// Extensibility Framework</a>. The Plugin will show the String "Hello AML" and reacts on a
-    /// selection event with output of the Name of the Selected CAEX Object. It also has a command,
-    /// to change the string from lower- to uppercase and vice versa and an About Command which
-    /// displays the Disclaimer
+    /// The Class CreateElementPlugin is an example for a Plugin, which has it's own User Interface
+    /// and which is an editing Plugin. Whenever an Editing Plugin is activated, the AutomationML
+    /// Editor will block all User Interactions until the Plugin is terminated.
     /// </summary>
-    [Export(typeof(IAMLEditorView))]
-    public partial class HelloAml : UserControl, IAMLEditorView
+    [Export(typeof(IAMLEditorPlugin))]
+    public class CreateElementPlugin : AMLEditorPlugin.Contracts.IAMLEditorPlugin
     {
         /// <summary>
         /// <see cref="AboutCommand"/>
         /// </summary>
         private RelayCommand<object> aboutCommand;
-
-        /// <summary>
-        /// <see cref="InvertCase"/>
-        /// </summary>
-        private RelayCommand<object> invertCase;
-
-        /// <summary>
-        /// Indication if the objectname is shown in lower- or uppercase
-        /// </summary>
-        private bool isLowerCase;
 
         /// <summary>
         /// <see cref="StartCommand"/>
@@ -60,35 +44,35 @@ namespace AMLEditorPlugin
         private RelayCommand<object> stopCommand;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="HelloAml"/> class.
+        /// The UI for Plugin Interaction.
         /// </summary>
-        public HelloAml()
-        {
-            InitializeComponent();
+        private CreateElementUI ui;
 
-            // Defines the Command list, which will contain user commands, which a user can select
-            // via the Plugin Menue.
+        /// <summary>
+        /// The view model for the Plugin
+        /// </summary>
+        private CreateElementViewModel viewModel;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="CreateElementPlugin"/> class.
+        /// </summary>
+        public CreateElementPlugin()
+        {
+            // Add some commands to the Command list, which a user can select.
             Commands = new List<PluginCommand>();
 
-            // Add the StartCommand (should exist in any Plugin)
+            // Add a StartCommand
             Commands.Add(new PluginCommand()
             {
                 CommandName = "Start",
                 Command = StartCommand
             });
 
-            // Add the Stop Command (should exist in any Plugin)
+            // Add a Stop Command
             Commands.Add(new PluginCommand()
             {
                 CommandName = "Stop",
                 Command = StopCommand
-            });
-
-            // Add the change spelling command (an additional command)
-            Commands.Add(new PluginCommand()
-            {
-                CommandName = "Change Spelling",
-                Command = InvertCase
             });
 
             // Add the About Command (recommended to exist in any Plugin)
@@ -102,13 +86,12 @@ namespace AMLEditorPlugin
         }
 
         /// <summary>
-        /// Occurs when the Plugin is activated (for example via the <see cref="StartCommand"/> ).
+        /// Occurs when [plugin activated].
         /// </summary>
         public event EventHandler PluginActivated;
 
         /// <summary>
-        /// Occurs when the Plugin is deactivated (some UserInteraction inside the Plugin or via the
-        /// <see cref="StopCommand"/> ).
+        /// Occurs when [plugin terminated].
         /// </summary>
         public event EventHandler PluginTerminated;
 
@@ -127,58 +110,32 @@ namespace AMLEditorPlugin
         }
 
         /// <summary>
-        /// Gets a value indicating whether this UserControl could be closed from the Editor's
-        /// WindowManager. When a close occurs from the WindowManager, the StopCommand will be
-        /// executed via the <see cref="ExecuteCommand"/> Method.
+        /// Gets the commands for the Plugin.
         /// </summary>
-        /// <value><c>true</c> if this instance can close; otherwise, <c>false</c>.</value>
-        public bool CanClose
-        {
-            get { return true; }
-        }
-
-        /// <summary>
-        /// Gets the List of commands, which are viewed in the Plugin Menue in the Host Application
-        /// </summary>
-        /// <value>The command List.</value>
-        public List<PluginCommand> Commands
+        /// <value>The commands.</value>
+        public List<AMLEditorPlugin.Contracts.PluginCommand> Commands
         {
             get;
             private set;
         }
 
         /// <summary>
-        /// Gets the display name which is shown in the Plugin Menu in the Host Application
+        /// Gets the display name.
         /// </summary>
         /// <value>The display name.</value>
         public string DisplayName
         {
-            get { return "Hello AML"; }
+            get { return "InternalElement Generator"; }
         }
 
         /// <summary>
-        /// The InvertCase - Command
-        /// </summary>
-        /// <value>The invert case.</value>
-        public System.Windows.Input.ICommand InvertCase
-        {
-            get
-            {
-                return this.invertCase
-                ??
-                (this.invertCase = new RelayCommand<object>(this.InvertCaseExecute, this.InvertCaseCanExecute));
-            }
-        }
-
-        /// <summary>
-        /// Gets a value indicating whether this instance is active. The Property should be set to
-        /// true in the <see cref="StartCommand"/> and set to false in the <see cref="StopCommand"/>
+        /// Gets a value indicating whether this instance is active.
         /// </summary>
         /// <value><c>true</c> if this instance is active; otherwise, <c>false</c>.</value>
         public bool IsActive
         {
-            get;
             private set;
+            get;
         }
 
         /// <summary>
@@ -189,26 +146,28 @@ namespace AMLEditorPlugin
         /// <value><c>true</c> if this instance is reactive; otherwise, <c>false</c>.</value>
         public bool IsReactive
         {
-            get { return true; }
+            // this one is not reactive
+            get { return false; }
         }
 
         /// <summary>
         /// Gets a value indicating whether this instance is readonly. No CAEX Objects should be
-        /// modified by the Plugin, when set to true. If a Plugin is Readonly, the AmlEditor is still 
-        /// enabled, when the Plugib is Active. If a Plugin
-        /// is not readonly the Editor is disbaled. Please note, that the Editor is disbaled, if
-        /// only one of the currently activated Plugins is not readonly.
+        /// modified by the Plugin, when set to true. If a Plugin is Readonly, the AmlEditor is
+        /// still enabled, when the Plugin is Active. If a Plugin is not readonly the Editor is
+        /// disbaled during activation. Please note, that the Editor will get disbaled, if only one
+        /// of the currently activated Plugins of the Editor is not readonly.
         /// </summary>
         /// <value><c>true</c> if this instance is readonly; otherwise, <c>false</c>.</value>
         public bool IsReadonly
         {
-            get { return true; }
+            // this one is not readonly, it can change the AML Document
+            get { return false; }
         }
 
         /// <summary>
-        /// The Activation Command, this command should exist in any plugin
+        /// The Start - Command
         /// </summary>
-        /// <value>The activation command.</value>
+        /// <value>The start command.</value>
         public System.Windows.Input.ICommand StartCommand
         {
             get
@@ -220,9 +179,9 @@ namespace AMLEditorPlugin
         }
 
         /// <summary>
-        /// The Termination Command, this command should exist in any plugin
+        /// The Stop - Command
         /// </summary>
-        /// <value>The termination command.</value>
+        /// <value>The stop command.</value>
         public System.Windows.Input.ICommand StopCommand
         {
             get
@@ -244,7 +203,8 @@ namespace AMLEditorPlugin
         /// <exception cref="System.NotImplementedException"></exception>
         public void ChangeAMLFilePath(string amlFilePath)
         {
-            this.HelloText.Text = "Hello " + System.IO.Path.GetFileName(amlFilePath);
+            // the plugin is neither reactive not readonly. Nothing has to be done here
+            ;
         }
 
         /// <summary>
@@ -254,10 +214,8 @@ namespace AMLEditorPlugin
         /// <param name="selectedObject">The selected object.</param>
         public void ChangeSelectedObject(CAEX_ClassModel.CAEXBasicObject selectedObject)
         {
-            if (selectedObject != null)
-            {
-                this.HelloText.Text = "Hello " + "\"" + selectedObject.Name() + "\"";
-            }
+            // the plugin is neither reactive not readonly. Nothing has to be done here
+            ;
         }
 
         /// <summary>
@@ -267,7 +225,7 @@ namespace AMLEditorPlugin
         /// of the plugin, so here some preparations for a clean termination should be performed.
         /// </summary>
         /// <param name="command">The command.</param>
-        public void ExecuteCommand(PluginCommandsEnum command)
+        public void ExecuteCommand(AMLEditorPlugin.Contracts.PluginCommandsEnum command)
         {
             switch (command)
             {
@@ -287,15 +245,11 @@ namespace AMLEditorPlugin
         /// <param name="selectedObject">The selected object, may be null.</param>
         public void PublishAutomationMLFileAndObject(string amlFilePath, CAEX_ClassModel.CAEXBasicObject selectedObject)
         {
-            if (!string.IsNullOrEmpty(amlFilePath))
-                this.HelloText.Text = "Hello " + System.IO.Path.GetFileName(amlFilePath);
-            else
-                this.HelloText.Text = "Nobody to say hello to!";
+            // inform the View Model to load the document
+            // the View Model belongs to a different ui thread, we need the dispatcher for the change
 
-            if (selectedObject != null)
-            {
-                // ToDo Implementation of object specific handling
-            }
+            this.ui.Dispatcher.Invoke(DispatcherPriority.Normal,
+                new ThreadStart(() => { this.viewModel.AmlFilePath = amlFilePath; }));
         }
 
         /// <summary>
@@ -320,37 +274,9 @@ namespace AMLEditorPlugin
         }
 
         /// <summary>
-        /// Test, if the <see cref="InvertCase"/> can execute. The Command can execute only, if the
-        /// <see cref="IsActive"/> Property is true:
+        /// Test, if the Plugin in not already active and the <see cref="StartCommand"/> can execute.
         /// </summary>
-        /// <param name="parameter">unused.</param>
-        /// <returns>true, if command can execute</returns>
-        private bool InvertCaseCanExecute(object parameter)
-        {
-            // the command can execute only if the plugin is active
-            return this.IsActive;
-        }
-
-        /// <summary>
-        /// The <see cref="InvertCase"/> Execution Action.
-        /// </summary>
-        /// <param name="parameter">unused.</param>
-        private void InvertCaseExecute(object parameter)
-        {
-            if (isLowerCase)
-                this.HelloText.Text = this.HelloText.Text.ToUpper();
-            else
-                this.HelloText.Text = this.HelloText.Text.ToLower();
-
-            isLowerCase = !isLowerCase;
-        }
-
-
-        /// <summary>
-        /// Test, if the <see cref="StartCommand"/> can execute. The <see cref="IsActive"/> Property 
-        /// should be false prior to Activation.
-        /// </summary>
-        /// <param name="parameter">unused</param>
+        /// <param name="parameter">unused parameter.</param>
         /// <returns>true, if command can execute</returns>
         private bool StartCommandCanExecute(object parameter)
         {
@@ -358,21 +284,71 @@ namespace AMLEditorPlugin
         }
 
         /// <summary>
-        /// The <see cref="StartCommand"/>s execution Action. The <see cref="PluginActivated"/>
-        /// event is raised and the <see cref="IsActive"/> Property is set to true.
+        /// The <see cref="StartCommand"/> Execution Action. A new Dispatcher Tread will be created
+        /// for the UI-Window.
         /// </summary>
-        /// <param name="parameter">unused</param>
+        /// <param name="parameter">unused parameter.</param>
         private void StartCommandExecute(object parameter)
         {
             this.IsActive = true;
-            if (PluginActivated != null)
-                PluginActivated(this, EventArgs.Empty);
+
+            var syncContext = SynchronizationContext.Current; 
+
+            // Create a thread. The new Thread is the owner of all data objects
+            Thread newWindowThread = new Thread(new ThreadStart(() =>
+            {
+                this.viewModel = new CreateElementViewModel();              
+
+                // Create our context, and install it:
+                SynchronizationContext.SetSynchronizationContext(new DispatcherSynchronizationContext(
+                        Dispatcher.CurrentDispatcher));
+
+                // create the UI
+                this.ui = new CreateElementUI();
+
+                // close event needs to be caught
+                this.ui.Closed += (s, e) =>
+                    {
+                        this.IsActive = false;
+                        this.viewModel.SaveCommand.Execute(null);
+
+                        if (PluginTerminated != null)
+                        {
+                            syncContext.Post(o => PluginTerminated(this, EventArgs.Empty), null);
+                        };                       
+
+                        Dispatcher.CurrentDispatcher.BeginInvokeShutdown(DispatcherPriority.Background);
+                    };
+
+                // setting the Data Context to the View Model
+                this.ui.DataContext = this.viewModel;
+
+                // Showing the UI
+                this.ui.Show();
+
+                // Notify the Host Application
+                if (PluginActivated != null)
+                    syncContext.Post(o => PluginActivated(this, EventArgs.Empty), this);
+
+                // Start the Dispatcher Processing
+                System.Windows.Threading.Dispatcher.Run();              
+
+            }));
+
+            // Set the apartment state
+            newWindowThread.SetApartmentState(ApartmentState.STA);
+            // Make the thread a background thread
+            newWindowThread.IsBackground = true;
+            // Start the thread
+            newWindowThread.Start();
+
+           
         }
 
         /// <summary>
-        /// Test, if the <see cref="StopCommand"/> can execute.
+        /// Test, if the Plugin is active and the <see cref="StopCommand"/> can execute.
         /// </summary>
-        /// <param name="parameter">unused</param>
+        /// <param name="parameter">unused parameter.</param>
         /// <returns>true, if command can execute</returns>
         private bool StopCommandCanExecute(object parameter)
         {
@@ -380,15 +356,16 @@ namespace AMLEditorPlugin
         }
 
         /// <summary>
-        /// The <see cref="StopCommand"/> Execution Action sets the <see cref="IsActive"/> Property
-        /// to false. The <see cref="PluginTerminated"/> event will be raised.
+        /// The <see cref="StopCommand"/> Execution Action.
         /// </summary>
-        /// <param name="parameter">unused</param>
+        /// <param name="parameter">unused parameter.</param>
         private void StopCommandExecute(object parameter)
         {
-            this.IsActive = false;
-            if (PluginTerminated != null)
-                PluginTerminated(this, EventArgs.Empty);
+            this.ui.Dispatcher.Invoke(DispatcherPriority.Normal, new ThreadStart(ui.Close));
         }
+
+       
+
+      
     }
 }

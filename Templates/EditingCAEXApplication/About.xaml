@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        Width="530"
+        Width="500"
         SizeToContent="Height"
         WindowStartupLocation="CenterScreen"
         WindowStyle="ToolWindow"
@@ -51,7 +51,7 @@
                                Source="AMLPlugin.png" />
                         <TextBlock Width="400"
                                    Margin="10,5"
-                                   Text="This AutomationML Editor Plugin can be used as a template for the Development of a Readonly Plugin which is embedded in the AMLEditor UI."
+                                   Text="This AutomationML Editor Plugin can be used as a template for the Development of Plugins whith editing functionality and Thread Synchronisation."
                                    TextWrapping="Wrap" />
                     </StackPanel>
 
@@ -132,7 +132,7 @@
                         <TextBlock Name="TextBlock1WithHyperlink" Margin="10,5,0,0">
                             Visit
                             <Hyperlink NavigateUri="https://www.AutomationML.org" RequestNavigate="Hyperlink_RequestNavigate">AutomationML</Hyperlink>
-                            for more Information about AutomationML.
+                            for more Information abot AutomationML.
                         </TextBlock>
 
                         <TextBlock Name="TextBlock2WithHyperlink"
@@ -148,7 +148,7 @@
                                    Margin="10,5,0,8"
                                    TextWrapping="Wrap">
                             Check out the Sources for this
-                            <Hyperlink NavigateUri="https://github.com/AutomationML/AMLEditorPluginContract/tree/master/Templates/SimpleWPFUserControl" RequestNavigate="Hyperlink_RequestNavigate">simple Plugin</Hyperlink>
+                            <Hyperlink NavigateUri="https://github.com/AutomationML/AMLEditorPluginContract/tree/master/Templates/EditingCAEXApplication" RequestNavigate="Hyperlink_RequestNavigate">advanced editing Plugin</Hyperlink>
                             on GitHub as a start point for your own plugin Development.
                         </TextBlock>
 
