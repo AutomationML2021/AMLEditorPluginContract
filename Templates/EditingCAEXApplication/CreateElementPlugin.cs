@@ -12,6 +12,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.Composition;
 using System.Threading;
+using System.Windows;
 using System.Windows.Threading;
 using AMLEditorPlugin.Contracts;
 
@@ -22,27 +23,24 @@ namespace AMLEditorPlugin
 {
     /// <summary>
     /// The Class CreateElementPlugin is an example for a Plugin, which has it's own User Interface
-    /// and which is an editing Plugin. Whenever an Editing Plugin is activated, the AutomationML
-    /// Editor will block all User Interactions until the Plugin is terminated.
+    /// and which is an editing Plugin. The Export Attribute of this class enables the AutomationML
+    /// Editor to load the Plugin with the <a
+    /// href="http://msdn.microsoft.com/en-us/library/dd460648%28v=vs.110%29.aspx">Microsoft Managed
+    /// Extensibility Framework</a>.    /// 
+    /// Whenever an Editing Plugin is activated, the AutomationML Editor will block all User
+    /// Interactions until the Plugin is terminated.    /// 
+    /// The UI is startet in its own UI Thread. The Synchronisation of Method Calls between the
+    /// AMLEditors Thread and the UI Thread is managed via a synchronisation Context. The Context is
+    /// needed for sending events back to the AMLEditor from the Plugin UI
     /// </summary>
     [Export(typeof(IAMLEditorPlugin))]
-    public class CreateElementPlugin : AMLEditorPlugin.Contracts.IAMLEditorPlugin
+    public class CreateElementPlugin : AMLEditorPlugin.Base.PluginBase
     {
         /// <summary>
         /// <see cref="AboutCommand"/>
         /// </summary>
         private RelayCommand<object> aboutCommand;
-
-        /// <summary>
-        /// <see cref="StartCommand"/>
-        /// </summary>
-        private RelayCommand<object> startCommand;
-
-        /// <summary>
-        /// <see cref="StopCommand"/>
-        /// </summary>
-        private RelayCommand<object> stopCommand;
-
+               
         /// <summary>
         /// The UI for Plugin Interaction.
         /// </summary>
@@ -57,23 +55,7 @@ namespace AMLEditorPlugin
         /// Initializes a new instance of the <see cref="CreateElementPlugin"/> class.
         /// </summary>
         public CreateElementPlugin()
-        {
-            // Add some commands to the Command list, which a user can select.
-            Commands = new List<PluginCommand>();
-
-            // Add a StartCommand
-            Commands.Add(new PluginCommand()
-            {
-                CommandName = "Start",
-                Command = StartCommand
-            });
-
-            // Add a Stop Command
-            Commands.Add(new PluginCommand()
-            {
-                CommandName = "Stop",
-                Command = StopCommand
-            });
+        {           
 
             // Add the About Command (recommended to exist in any Plugin)
             Commands.Add(new PluginCommand()
@@ -82,19 +64,10 @@ namespace AMLEditorPlugin
                 Command = AboutCommand
             });
 
-            this.IsActive = false;
+            this.DisplayName = "InternalElement Generator"; 
         }
 
-        /// <summary>
-        /// Occurs when [plugin activated].
-        /// </summary>
-        public event EventHandler PluginActivated;
-
-        /// <summary>
-        /// Occurs when [plugin terminated].
-        /// </summary>
-        public event EventHandler PluginTerminated;
-
+      
         /// <summary>
         /// The AboutCommand - Command
         /// </summary>
@@ -108,35 +81,7 @@ namespace AMLEditorPlugin
                 (this.aboutCommand = new RelayCommand<object>(this.AboutCommandExecute, this.AboutCommandCanExecute));
             }
         }
-
-        /// <summary>
-        /// Gets the commands for the Plugin.
-        /// </summary>
-        /// <value>The commands.</value>
-        public List<AMLEditorPlugin.Contracts.PluginCommand> Commands
-        {
-            get;
-            private set;
-        }
-
-        /// <summary>
-        /// Gets the display name.
-        /// </summary>
-        /// <value>The display name.</value>
-        public string DisplayName
-        {
-            get { return "InternalElement Generator"; }
-        }
-
-        /// <summary>
-        /// Gets a value indicating whether this instance is active.
-        /// </summary>
-        /// <value><c>true</c> if this instance is active; otherwise, <c>false</c>.</value>
-        public bool IsActive
-        {
-            private set;
-            get;
-        }
+              
 
         /// <summary>
         /// Gets a value indicating whether this instance is reactive. Reactive Plugin will be
@@ -144,7 +89,7 @@ namespace AMLEditorPlugin
         /// cref="ChangeAMLFilePath"/> and <see cref="ChangeSelectedObject"/>.
         /// </summary>
         /// <value><c>true</c> if this instance is reactive; otherwise, <c>false</c>.</value>
-        public bool IsReactive
+        public override bool IsReactive
         {
             // this one is not reactive
             get { return false; }
@@ -158,39 +103,12 @@ namespace AMLEditorPlugin
         /// of the currently activated Plugins of the Editor is not readonly.
         /// </summary>
         /// <value><c>true</c> if this instance is readonly; otherwise, <c>false</c>.</value>
-        public bool IsReadonly
+        public override bool IsReadonly
         {
             // this one is not readonly, it can change the AML Document
             get { return false; }
         }
-
-        /// <summary>
-        /// The Start - Command
-        /// </summary>
-        /// <value>The start command.</value>
-        public System.Windows.Input.ICommand StartCommand
-        {
-            get
-            {
-                return this.startCommand
-                ??
-                (this.startCommand = new RelayCommand<object>(this.StartCommandExecute, this.StartCommandCanExecute));
-            }
-        }
-
-        /// <summary>
-        /// The Stop - Command
-        /// </summary>
-        /// <value>The stop command.</value>
-        public System.Windows.Input.ICommand StopCommand
-        {
-            get
-            {
-                return this.stopCommand
-                ??
-                (this.stopCommand = new RelayCommand<object>(this.StopCommandExecute, this.StopCommandCanExecute));
-            }
-        }
+              
 
         /// <summary>
         /// Changes the aml file path. This method is called for a reactive Plugin <see
@@ -201,7 +119,7 @@ namespace AMLEditorPlugin
         /// </summary>
         /// <param name="amlFilePath">The aml file path.</param>
         /// <exception cref="System.NotImplementedException"></exception>
-        public void ChangeAMLFilePath(string amlFilePath)
+        public override void ChangeAMLFilePath(string amlFilePath)
         {
             // the plugin is neither reactive not readonly. Nothing has to be done here
             ;
@@ -212,29 +130,13 @@ namespace AMLEditorPlugin
         /// <see cref="IsReactive"/> is set to true and the Current Selection changes in the Host Application.
         /// </summary>
         /// <param name="selectedObject">The selected object.</param>
-        public void ChangeSelectedObject(CAEX_ClassModel.CAEXBasicObject selectedObject)
+        public override void ChangeSelectedObject(CAEX_ClassModel.CAEXBasicObject selectedObject)
         {
             // the plugin is neither reactive not readonly. Nothing has to be done here
             ;
         }
 
-        /// <summary>
-        /// This Method is called from the AutomationML Editor to execute a specific command. The
-        /// Editor can only execute those commands, which are identified by the <see
-        /// cref="PluginCommandsEnum"/> Enumeration. The Editor may Exceute the termination command
-        /// of the plugin, so here some preparations for a clean termination should be performed.
-        /// </summary>
-        /// <param name="command">The command.</param>
-        public void ExecuteCommand(AMLEditorPlugin.Contracts.PluginCommandsEnum command)
-        {
-            switch (command)
-            {
-                case PluginCommandsEnum.Terminate:
-                    StopCommandExecute(null);
-                    break;
-            }
-        }
-
+       
         /// <summary>
         /// This Method is called on activation of a Plugin. The AutomationML Editor 'publishes' its
         /// current state to the plugin, that is the Path of the loaded AutomationML Document and
@@ -243,11 +145,10 @@ namespace AMLEditorPlugin
         /// </summary>
         /// <param name="amlFilePath">   The aml file path, may be empty.</param>
         /// <param name="selectedObject">The selected object, may be null.</param>
-        public void PublishAutomationMLFileAndObject(string amlFilePath, CAEX_ClassModel.CAEXBasicObject selectedObject)
+        public override void PublishAutomationMLFileAndObject(string amlFilePath, CAEX_ClassModel.CAEXBasicObject selectedObject)
         {
-            // inform the View Model to load the document
-            // the View Model belongs to a different ui thread, we need the dispatcher for the change
-
+            // inform the View Model to load the document the View Model belongs to a different ui
+            // thread, we need the dispatcher to send the change to the UI
             this.ui.Dispatcher.Invoke(DispatcherPriority.Normal,
                 new ThreadStart(() => { this.viewModel.AmlFilePath = amlFilePath; }));
         }
@@ -273,99 +174,89 @@ namespace AMLEditorPlugin
             dialog.ShowDialog();
         }
 
-        /// <summary>
-        /// Test, if the Plugin in not already active and the <see cref="StartCommand"/> can execute.
-        /// </summary>
-        /// <param name="parameter">unused parameter.</param>
-        /// <returns>true, if command can execute</returns>
-        private bool StartCommandCanExecute(object parameter)
-        {
-            return !this.IsActive;
-        }
-
-        /// <summary>
+                /// <summary>
         /// The <see cref="StartCommand"/> Execution Action. A new Dispatcher Tread will be created
-        /// for the UI-Window.
+        /// for the UI-Window. A Synchronisation Context is needed to send events back to the AMLEditor
         /// </summary>
         /// <param name="parameter">unused parameter.</param>
-        private void StartCommandExecute(object parameter)
+        protected override void ActivateCommandExecute(object parameter)
         {
             this.IsActive = true;
 
-            var syncContext = SynchronizationContext.Current; 
+            // get the current Synchronisation Context (this is the AMLEditors Dispacther Thread of the Main Window)
+            var syncContext = SynchronizationContext.Current;
 
-            // Create a thread. The new Thread is the owner of all data objects
-            Thread newWindowThread = new Thread(new ThreadStart(() =>
+            if (syncContext != null)
             {
-                this.viewModel = new CreateElementViewModel();              
+                // Create a thread. The new Thread is the owner of all data objects
+                Thread newWindowThread = new Thread(new ThreadStart(() =>
+                {
+                    // create the viewModel for the UI
+                    this.viewModel = new CreateElementViewModel();
 
-                // Create our context, and install it:
-                SynchronizationContext.SetSynchronizationContext(new DispatcherSynchronizationContext(
-                        Dispatcher.CurrentDispatcher));
+                    // Create a new context for the UI Thread, and install it:
+                    SynchronizationContext.SetSynchronizationContext(new DispatcherSynchronizationContext(
+                            Dispatcher.CurrentDispatcher));
 
-                // create the UI
-                this.ui = new CreateElementUI();
+                    // create the UI
+                    this.ui = new CreateElementUI();                   
 
-                // close event needs to be caught
-                this.ui.Closed += (s, e) =>
+                    // set the Data Context to the View Model
+                    this.ui.DataContext = this.viewModel;
+
+                    // close event needs to be caught
+                    this.ui.Closed += (s, e) =>
                     {
                         this.IsActive = false;
                         this.viewModel.SaveCommand.Execute(null);
 
-                        if (PluginTerminated != null)
-                        {
-                            syncContext.Post(o => PluginTerminated(this, EventArgs.Empty), null);
-                        };                       
+                        // post the Terminated Event on the Synchronisation Context, so that the AMLEditor gets informed
+                        syncContext.Post(o =>  this.RaisePluginTerminated (), this);
 
+                        // Shut Down the Dispatcher Thread
                         Dispatcher.CurrentDispatcher.BeginInvokeShutdown(DispatcherPriority.Background);
                     };
 
-                // setting the Data Context to the View Model
-                this.ui.DataContext = this.viewModel;
+                    // Showing the UI
+                    this.ui.Show();
 
-                // Showing the UI
-                this.ui.Show();
+                    // Notify the Host Application, post the Activation Event on the Synchronisation Context
+                    syncContext.Post(o =>  this.RaisePluginActivated(), this);
 
-                // Notify the Host Application
-                if (PluginActivated != null)
-                    syncContext.Post(o => PluginActivated(this, EventArgs.Empty), this);
+                    // Start the Dispatcher Processing after the Activation Event was raised
+                    System.Windows.Threading.Dispatcher.Run();
 
-                // Start the Dispatcher Processing
-                System.Windows.Threading.Dispatcher.Run();              
+                    // Extra Code here will be executed only, when the Dispatcher has been terminated
 
-            }));
+                    // .... 
+                }));
 
-            // Set the apartment state
-            newWindowThread.SetApartmentState(ApartmentState.STA);
-            // Make the thread a background thread
-            newWindowThread.IsBackground = true;
-            // Start the thread
-            newWindowThread.Start();
+                // Set the apartment state
+                newWindowThread.SetApartmentState(ApartmentState.STA);
+                
+                // Make the thread a background thread (not required)
+                newWindowThread.IsBackground = true;
+                
+                // Start the thread
+                newWindowThread.Start();
+            }
+            else
+            {
+                MessageBox.Show("Couldn't activate the Plugin UI Thread! No current Synchronisation Context exists!");
+            }
 
-           
         }
 
+         
+       
         /// <summary>
-        /// Test, if the Plugin is active and the <see cref="StopCommand"/> can execute.
+        /// The <see cref="StopCommand"/> Execution Action on the Dispatcher Thread of the UI
         /// </summary>
         /// <param name="parameter">unused parameter.</param>
-        /// <returns>true, if command can execute</returns>
-        private bool StopCommandCanExecute(object parameter)
+        protected override void TerminateCommandExecute(object parameter)
         {
-            return this.IsActive;
-        }
-
-        /// <summary>
-        /// The <see cref="StopCommand"/> Execution Action.
-        /// </summary>
-        /// <param name="parameter">unused parameter.</param>
-        private void StopCommandExecute(object parameter)
-        {
+            // we need the dispatcher again, to send the close command to the UI
             this.ui.Dispatcher.Invoke(DispatcherPriority.Normal, new ThreadStart(ui.Close));
         }
-
-       
-
-      
     }
 }

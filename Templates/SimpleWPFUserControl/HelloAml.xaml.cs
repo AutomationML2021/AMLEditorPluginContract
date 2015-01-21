@@ -50,52 +50,53 @@ namespace AMLEditorPlugin
         private bool isLowerCase;
 
         /// <summary>
-        /// <see cref="StartCommand"/>
-        /// </summary>
-        private RelayCommand<object> startCommand;
-
-        /// <summary>
-        /// <see cref="StopCommand"/>
-        /// </summary>
-        private RelayCommand<object> stopCommand;
-
-        /// <summary>
         /// Initializes a new instance of the <see cref="HelloAml"/> class.
         /// </summary>
         public HelloAml()
         {
-            InitializeComponent();
-
             // Defines the Command list, which will contain user commands, which a user can select
             // via the Plugin Menue.
             Commands = new List<PluginCommand>();
 
-            // Add the StartCommand (should exist in any Plugin)
-            Commands.Add(new PluginCommand()
+
+
+            ActivatePlugin = new PluginCommand()
             {
+                Command = new RelayCommand<object>(this.StartCommandExecute, this.StartCommandCanExecute),
                 CommandName = "Start",
-                Command = StartCommand
-            });
+                CommandToolTip = "Start the Plugin"
+            };
+
+            TerminatePlugin = new PluginCommand()
+            {
+                Command = new RelayCommand<object>(this.StopCommandExecute, this.StopCommandCanExecute),
+                CommandName = "Stop",
+                CommandToolTip = "Stop the Plugin"
+            };
+
+            InitializeComponent();
+
+
+            // Add the StartCommand (should exist in any Plugin)
+            Commands.Add(ActivatePlugin);
 
             // Add the Stop Command (should exist in any Plugin)
-            Commands.Add(new PluginCommand()
-            {
-                CommandName = "Stop",
-                Command = StopCommand
-            });
+            Commands.Add(TerminatePlugin);
 
             // Add the change spelling command (an additional command)
             Commands.Add(new PluginCommand()
             {
                 CommandName = "Change Spelling",
-                Command = InvertCase
+                Command = InvertCase,
+                CommandToolTip = "Change from Uppercase to Lowercase and vice versa"
             });
 
             // Add the About Command (recommended to exist in any Plugin)
             Commands.Add(new PluginCommand()
             {
                 CommandName = "About",
-                Command = AboutCommand
+                Command = AboutCommand,
+                CommandToolTip = "Information about this plugin"
             });
 
             this.IsActive = false;
@@ -124,6 +125,16 @@ namespace AMLEditorPlugin
                 ??
                 (this.aboutCommand = new RelayCommand<object>(this.AboutCommandExecute, this.AboutCommandCanExecute));
             }
+        }
+
+        /// <summary>
+        /// Gets the activate plugin.
+        /// </summary>
+        /// <value>The activate plugin.</value>
+        public PluginCommand ActivatePlugin
+        {
+            get;
+            private set;
         }
 
         /// <summary>
@@ -194,10 +205,10 @@ namespace AMLEditorPlugin
 
         /// <summary>
         /// Gets a value indicating whether this instance is readonly. No CAEX Objects should be
-        /// modified by the Plugin, when set to true. If a Plugin is Readonly, the AmlEditor is still 
-        /// enabled, when the Plugib is Active. If a Plugin
-        /// is not readonly the Editor is disbaled. Please note, that the Editor is disbaled, if
-        /// only one of the currently activated Plugins is not readonly.
+        /// modified by the Plugin, when set to true. If a Plugin is Readonly, the AmlEditor is
+        /// still enabled, when the Plugib is Active. If a Plugin is not readonly the Editor is
+        /// disbaled. Please note, that the Editor is disbaled, if only one of the currently
+        /// activated Plugins is not readonly.
         /// </summary>
         /// <value><c>true</c> if this instance is readonly; otherwise, <c>false</c>.</value>
         public bool IsReadonly
@@ -206,31 +217,13 @@ namespace AMLEditorPlugin
         }
 
         /// <summary>
-        /// The Activation Command, this command should exist in any plugin
+        /// Gets the terminate plugin.
         /// </summary>
-        /// <value>The activation command.</value>
-        public System.Windows.Input.ICommand StartCommand
+        /// <value>The terminate plugin.</value>
+        public PluginCommand TerminatePlugin
         {
-            get
-            {
-                return this.startCommand
-                ??
-                (this.startCommand = new RelayCommand<object>(this.StartCommandExecute, this.StartCommandCanExecute));
-            }
-        }
-
-        /// <summary>
-        /// The Termination Command, this command should exist in any plugin
-        /// </summary>
-        /// <value>The termination command.</value>
-        public System.Windows.Input.ICommand StopCommand
-        {
-            get
-            {
-                return this.stopCommand
-                ??
-                (this.stopCommand = new RelayCommand<object>(this.StopCommandExecute, this.StopCommandCanExecute));
-            }
+            get;
+            private set;
         }
 
         /// <summary>
@@ -266,8 +259,9 @@ namespace AMLEditorPlugin
         /// cref="PluginCommandsEnum"/> Enumeration. The Editor may Exceute the termination command
         /// of the plugin, so here some preparations for a clean termination should be performed.
         /// </summary>
-        /// <param name="command">The command.</param>
-        public void ExecuteCommand(PluginCommandsEnum command)
+        /// <param name="command">    The command.</param>
+        /// <param name="amlFilePath">The amlFilePath.</param>
+        public void ExecuteCommand(PluginCommandsEnum command, string amlFilePath)
         {
             switch (command)
             {
@@ -345,9 +339,8 @@ namespace AMLEditorPlugin
             isLowerCase = !isLowerCase;
         }
 
-
         /// <summary>
-        /// Test, if the <see cref="StartCommand"/> can execute. The <see cref="IsActive"/> Property 
+        /// Test, if the <see cref="StartCommand"/> can execute. The <see cref="IsActive"/> Property
         /// should be false prior to Activation.
         /// </summary>
         /// <param name="parameter">unused</param>
@@ -358,7 +351,7 @@ namespace AMLEditorPlugin
         }
 
         /// <summary>
-        /// The <see cref="StartCommand"/>s execution Action. The <see cref="PluginActivated"/>
+        /// The <see cref="StartCommand"/> s execution Action. The <see cref="PluginActivated"/>
         /// event is raised and the <see cref="IsActive"/> Property is set to true.
         /// </summary>
         /// <param name="parameter">unused</param>

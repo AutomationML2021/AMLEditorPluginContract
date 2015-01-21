@@ -38,25 +38,20 @@
     </DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Altova, Version=1.0.5217.15909, Culture=neutral, PublicKeyToken=994749c2bff1fea2, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>packages\AMLEngine.2.1.2.1\lib\net40\Altova.dll</HintPath>
+    <Reference Include="Altova">
+      <HintPath>packages\AMLEngine.2.1.4.3\lib\net40\Altova.dll</HintPath>
     </Reference>
-    <Reference Include="AltovaXML, Version=1.0.5217.15909, Culture=neutral, PublicKeyToken=994749c2bff1fea2, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>packages\AMLEngine.2.1.2.1\lib\net40\AltovaXML.dll</HintPath>
+    <Reference Include="AltovaXML">
+      <HintPath>packages\AMLEngine.2.1.4.3\lib\net40\AltovaXML.dll</HintPath>
     </Reference>
-    <Reference Include="AMLEditorPlugin.Contracts, Version=1.0.2.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>packages\AMLEditorPluginContract.1.0.2.0\lib\net40\AMLEditorPlugin.Contracts.dll</HintPath>
+    <Reference Include="AMLEditorPlugin.Contracts">
+      <HintPath>packages\AMLEditorPluginContract.1.0.5\lib\net40\AMLEditorPlugin.Contracts.dll</HintPath>
     </Reference>
-    <Reference Include="AMLEngine, Version=2.1.2.0, Culture=neutral, PublicKeyToken=994749c2bff1fea2, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>packages\AMLEngine.2.1.2.1\lib\net40\AMLEngine.dll</HintPath>
+    <Reference Include="AMLEngine">
+      <HintPath>packages\AMLEngine.2.1.4.3\lib\net40\AMLEngine.dll</HintPath>
     </Reference>
-    <Reference Include="AMLEngineExtensions, Version=2.1.2.0, Culture=neutral, PublicKeyToken=994749c2bff1fea2, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>packages\AMLEngine.2.1.2.1\lib\net40\AMLEngineExtensions.dll</HintPath>
+    <Reference Include="AMLEngineExtensions">
+      <HintPath>packages\AMLEngine.2.1.4.3\lib\net40\AMLEngineExtensions.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.Composition" />

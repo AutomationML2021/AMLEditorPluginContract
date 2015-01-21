@@ -1,7 +1,23 @@
-﻿using System;
+﻿// ***********************************************************************
+// Assembly         : CreateElementPlugin
+// Author           : Josef Prinz
+// Created          : 01-20-2015
+//
+// Last Modified By : Josef Prinz
+// Last Modified On : 01-20-2015
+// ***********************************************************************
+// <copyright file="ElementViewModel.cs" company="AutomationML e.V.">
+//     Copyright (c) AutomationML e.V. All rights reserved.
+// </copyright>
+// <summary></summary>
+// ***********************************************************************
+using System;
 using System.ComponentModel;
 using CAEX_ClassModel;
 
+/// <summary>
+/// The AMLEditorPlugin namespace.
+/// </summary>
 namespace AMLEditorPlugin
 {
     /// <summary>
@@ -10,7 +26,7 @@ namespace AMLEditorPlugin
     public class ElementViewModel : INotifyPropertyChanged
     {
         /// <summary>
-        /// 	<see cref="Name"/>
+        /// <see cref="Name" />
         /// </summary>
         private string name;
 

@@ -1,14 +1,27 @@
-﻿using System.Collections.ObjectModel;
+﻿// *********************************************************************** Assembly :
+// CreateElementPlugin Author : Josef Prinz Created : 01-20-2015
+// 
+// Last Modified By : Josef Prinz Last Modified On : 01-20-2015 ***********************************************************************
+// <copyright file="CreateElementViewModel.cs" company="AutomationML e.V.">
+//     Copyright (c) AutomationML e.V.. All rights reserved.
+// </copyright>
+// <summary>
+// </summary>
+// ***********************************************************************
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.IO;
 using System.Windows.Data;
 using AMLEditorPlugin.Contracts;
 using CAEX_ClassModel;
 
+/// <summary>
+/// The AMLEditorPlugin namespace.
+/// </summary>
 namespace AMLEditorPlugin
 {
     /// <summary>
-    /// Class CreateElementViewModel.
+    /// Class CreateElementViewModel. This ViewModel is the DataModel for the Plugin UI <see cref="CreateElementUI"/>
     /// </summary>
     public class CreateElementViewModel : INotifyPropertyChanged
     {
@@ -59,7 +72,7 @@ namespace AMLEditorPlugin
         }
 
         /// <summary>
-        /// Gets and sets the AmlFilePath
+        /// Gets and sets the AmlFilePath and loads the AMLDocument as a CAEXDocument
         /// </summary>
         /// <value>The aml file path.</value>
         public string AmlFilePath
@@ -242,7 +255,9 @@ namespace AMLEditorPlugin
         }
 
         /// <summary>
-        /// The <see cref="CreateCommand"/> Execution Action.
+        /// The <see cref="CreateCommand"/> Execution Action. Ne Child Elements are added to the
+        /// Selected Internal Element. If no Internal Element is selected, the Child
+        /// InternalElements are added to the selected InstanceHierarchy.
         /// </summary>
         /// <param name="parameter">unused parameter.</param>
         private void CreateCommandExecute(object parameter)
@@ -296,7 +311,8 @@ namespace AMLEditorPlugin
         }
 
         /// <summary>
-        /// The currently selected Element in the InstanceHierarchy Collection chnaged. The InternalElement Collection will be updated
+        /// The currently selected Element in the InstanceHierarchy Collection chnaged. The
+        /// InternalElement Collection will be updated
         /// </summary>
         /// <param name="sender">The sender.</param>
         /// <param name="e">     
@@ -304,7 +320,6 @@ namespace AMLEditorPlugin
         /// </param>
         private void InstanceHierarchies_CurrentChanged(object sender, System.EventArgs e)
         {
-           
             var ih = this.InstanceHierarchies.CurrentItem as InstanceHierarchyType;
 
             if (ih != null)
@@ -316,7 +331,6 @@ namespace AMLEditorPlugin
             OnPropertyChanged("InternalElements");
         }
 
-       
         /// <summary>
         /// Test, if a CAEX Document is loaded and the <see cref="SaveCommand"/> can execute.
         /// </summary>
