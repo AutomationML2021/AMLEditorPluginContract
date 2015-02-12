@@ -39,19 +39,19 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Altova">
-      <HintPath>packages\AMLEngine.2.1.4.3\lib\net40\Altova.dll</HintPath>
+      <HintPath>packages\AMLEngine.3.0.1\lib\net40\Altova.dll</HintPath>
     </Reference>
     <Reference Include="AltovaXML">
-      <HintPath>packages\AMLEngine.2.1.4.3\lib\net40\AltovaXML.dll</HintPath>
+      <HintPath>packages\AMLEngine.3.0.1\lib\net40\AltovaXML.dll</HintPath>
     </Reference>
     <Reference Include="AMLEditorPlugin.Contracts">
-      <HintPath>packages\AMLEditorPluginContract.1.0.5\lib\net40\AMLEditorPlugin.Contracts.dll</HintPath>
+      <HintPath>packages\AMLEditorPluginContract.1.0.5.1\lib\net40\AMLEditorPlugin.Contracts.dll</HintPath>
     </Reference>
     <Reference Include="AMLEngine">
-      <HintPath>packages\AMLEngine.2.1.4.3\lib\net40\AMLEngine.dll</HintPath>
+      <HintPath>packages\AMLEngine.3.0.1\lib\net40\AMLEngine.dll</HintPath>
     </Reference>
     <Reference Include="AMLEngineExtensions">
-      <HintPath>packages\AMLEngine.2.1.4.3\lib\net40\AMLEngineExtensions.dll</HintPath>
+      <HintPath>packages\AMLEngine.3.0.1\lib\net40\AMLEngineExtensions.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.Composition" />
@@ -106,6 +106,7 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="app.config" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
