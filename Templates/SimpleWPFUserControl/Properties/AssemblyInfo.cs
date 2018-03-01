@@ -8,9 +8,9 @@ using System.Windows;
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("AutomationML e.V.")]
-[assembly: AssemblyProduct("HelloAmlPlugin")]
-[assembly: AssemblyCopyright("Copyright © AutomationML e.V. 2015")]
-[assembly: AssemblyTrademark("")]
+[assembly: AssemblyProduct("AutomationML")]
+[assembly: AssemblyCopyright("Copyright © AutomationML e.V. 2018")]
+[assembly: AssemblyTrademark("AutomationML")]
 [assembly: AssemblyCulture("")]
 
 // Durch Festlegen von ComVisible auf "false" werden die Typen in dieser Assembly unsichtbar für
@@ -41,5 +41,5 @@ using System.Windows;
 // 
 // Sie können alle Werte angeben oder die standardmäßigen Build- und Revisionsnummern übernehmen,
 // indem Sie "*" eingeben: [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("1.0.0.0")]
+[assembly: AssemblyVersion("1.1.0.0")]
 [assembly: AssemblyFileVersion("1.0.0.0")]

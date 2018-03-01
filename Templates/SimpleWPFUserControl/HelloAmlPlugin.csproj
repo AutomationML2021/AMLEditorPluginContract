@@ -7,9 +7,9 @@
     <ProjectGuid>{6D810AEF-0A1A-4962-A040-D139F7F80659}</ProjectGuid>
     <OutputType>library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>AMLEditorPlugin</RootNamespace>
-    <AssemblyName>AMLEditorPlugin</AssemblyName>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <RootNamespace>Aml.Editor.Plugin</RootNamespace>
+    <AssemblyName>HelloAMLPlugIn</AssemblyName>
+    <TargetFrameworkVersion>v4.7</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <WarningLevel>4</WarningLevel>
@@ -21,7 +21,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
+    <OutputPath>$(SolutionDir)\Plugins\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -30,7 +30,7 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
+    <OutputPath>$(SolutionDir)\Plugins\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -39,35 +39,23 @@
     </DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Altova, Version=1.0.5505.24743, Culture=neutral, PublicKeyToken=994749c2bff1fea2, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>packages\AMLEngine.3.1.1\lib\net40\Altova.dll</HintPath>
+    <Reference Include="AML.Editor.PluginContracts, Version=2.0.1.0, Culture=neutral, PublicKeyToken=60b97399e4e37abb, processorArchitecture=MSIL">
+      <HintPath>..\AmlEditorPlugInSandbox\packages\Aml.Editor.Plugin.Contract.2.0.1\lib\net47\AML.Editor.PluginContracts.dll</HintPath>
     </Reference>
-    <Reference Include="AltovaXML, Version=1.0.5505.24743, Culture=neutral, PublicKeyToken=994749c2bff1fea2, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>packages\AMLEngine.3.1.1\lib\net40\AltovaXML.dll</HintPath>
+    <Reference Include="AML.Engine, Version=1.0.4.27642, Culture=neutral, PublicKeyToken=449e3551ddfecd2b, processorArchitecture=MSIL">
+      <HintPath>..\AmlEditorPlugInSandbox\packages\Aml.Engine.1.0.5\lib\net47\AML.Engine.dll</HintPath>
     </Reference>
-    <Reference Include="AMLEditorPlugin.Contracts">
-      <HintPath>packages\AMLEditorPluginContract.1.0.5.1\lib\net40\AMLEditorPlugin.Contracts.dll</HintPath>
-    </Reference>
-    <Reference Include="AMLEngine, Version=3.1.1.0, Culture=neutral, PublicKeyToken=994749c2bff1fea2, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>packages\AMLEngine.3.1.1\lib\net40\AMLEngine.dll</HintPath>
-    </Reference>
-    <Reference Include="AMLEngineExtensions, Version=3.1.1.0, Culture=neutral, PublicKeyToken=994749c2bff1fea2, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>packages\AMLEngine.3.1.1\lib\net40\AMLEngineExtensions.dll</HintPath>
+    <Reference Include="AML.Engine.Services, Version=1.0.4.27642, Culture=neutral, PublicKeyToken=449e3551ddfecd2b, processorArchitecture=MSIL">
+      <HintPath>..\AmlEditorPlugInSandbox\packages\Aml.Engine.1.0.5\lib\net47\AML.Engine.Services.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.Composition" />
-    <Reference Include="System.Data" />
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Core" />
     <Reference Include="System.Xaml">
       <RequiredTargetFramework>4.0</RequiredTargetFramework>
     </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
+    <Reference Include="System.Xml.Linq" />
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>

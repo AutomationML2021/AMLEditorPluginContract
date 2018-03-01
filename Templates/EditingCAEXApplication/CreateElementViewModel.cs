@@ -12,13 +12,14 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.IO;
 using System.Windows.Data;
-using AMLEditorPlugin.Contracts;
-using CAEX_ClassModel;
+using Aml.Editor.Plugin.Contracts;
+using Aml.Engine.CAEX;
+using Aml.Engine.CAEX.Extensions;
 
 /// <summary>
-/// The AMLEditorPlugin namespace.
+/// The Aml.Editor.Plugin namespace.
 /// </summary>
-namespace AMLEditorPlugin
+namespace Aml.Editor.Plugin
 {
     /// <summary>
     /// Class CreateElementViewModel. This ViewModel is the DataModel for the Plugin UI <see cref="CreateElementUI"/>

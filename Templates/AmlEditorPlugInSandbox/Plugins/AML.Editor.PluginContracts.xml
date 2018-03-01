@@ -608,6 +608,12 @@
             </summary>
             <value>The name of the command.</value>
         </member>
+        <member name="P:Aml.Editor.Plugin.Contracts.PluginCommand.DisplayName">
+            <summary>
+            Gets the display name (This returns only the <see cref="P:Aml.Editor.Plugin.Contracts.PluginCommand.CommandName"/>). 
+            A DisplayName Property is needed to bind the CommandName to UI controls.
+            </summary>
+        </member>
         <member name="P:Aml.Editor.Plugin.Contracts.PluginCommand.CommandToolTip">
             <summary>
             Gets or sets the command tool tip

@@ -3,7 +3,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Navigation;
 
-namespace AMLEditorPlugin
+namespace Aml.Editor.Plugin
 {
     /// <summary>
     /// Interaction logic for About.xaml

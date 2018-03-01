@@ -1,4 +1,5 @@
-﻿// *********************************************************************** Assembly :
+﻿// *********************************************************************** 
+// Assembly :
 // AMLEditorPlugin Author : Josef Prinz Created : 01-19-2015
 // 
 // Last Modified By : Josef Prinz Last Modified On : 01-20-2015 ***********************************************************************
@@ -9,24 +10,24 @@
 // </summary>
 // ***********************************************************************
 
+using Aml.Editor.Plugin.Contracts;
+using Aml.Engine.CAEX;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.Composition;
 using System.Windows.Controls;
-using AMLEditorPlugin.Contracts;
-using AMLEngineExtensions;
 
 /// <summary>
 /// The AMLEditorPlugin namespace.
 /// </summary>
-namespace AMLEditorPlugin
+namespace Aml.Editor.Plugin
 {
     /// <summary>
-    /// HelloAml is an example Plugin, which implements the IAMLEditorView Interface. The Plugin is
+    /// HelloAml is an example PlugIn, which implements the IAMLEditorView Interface. The PlugIn is
     /// a UserControl, which is managed by the AutomationML Editors Window- and Docking - Manager.
-    /// The Export Attribute enables the AutomationML Editor to load the Plugin with the <a
+    /// The Export Attribute enables the AutomationML Editor to load the PlugIn with the <a
     /// href="http://msdn.microsoft.com/en-us/library/dd460648%28v=vs.110%29.aspx">Microsoft Managed
-    /// Extensibility Framework</a>. The Plugin will show the String "Hello AML" and reacts on a
+    /// Extensibility Framework</a>. The PlugIn will show the String "Hello AML" and reacts on a
     /// selection event with output of the Name of the Selected CAEX Object. It also has a command,
     /// to change the string from lower- to uppercase and vice versa and an About Command which
     /// displays the Disclaimer
@@ -45,7 +46,7 @@ namespace AMLEditorPlugin
         private RelayCommand<object> invertCase;
 
         /// <summary>
-        /// Indication if the objectname is shown in lower- or uppercase
+        /// Indication if the object name is shown in lower- or uppercase
         /// </summary>
         private bool isLowerCase;
 
@@ -55,35 +56,38 @@ namespace AMLEditorPlugin
         public HelloAml()
         {
             // Defines the Command list, which will contain user commands, which a user can select
-            // via the Plugin Menue.
+            // via the PlugIn Menu.
             Commands = new List<PluginCommand>();
 
 
-
+            // Every PlugIn needs at least an Activation command, which will be called by a user to activate the PlugIn.
             ActivatePlugin = new PluginCommand()
             {
-                Command = new RelayCommand<object>(this.StartCommandExecute, this.StartCommandCanExecute),
+                Command = new RelayCommand<object>(this.StartCommandExecute, 
+                    this.StartCommandCanExecute),
                 CommandName = "Start",
-                CommandToolTip = "Start the Plugin"
+                CommandToolTip = "Start the PlugIn"
             };
 
+            // Every PlugIn should provide a Termination command, which will be called when the PlugIn window is closed by the user. This can only
+            // occur, if the PlugIn view is embedded in a docking window by the Editor.
             TerminatePlugin = new PluginCommand()
             {
                 Command = new RelayCommand<object>(this.StopCommandExecute, this.StopCommandCanExecute),
                 CommandName = "Stop",
-                CommandToolTip = "Stop the Plugin"
+                CommandToolTip = "Stop the PlugIn"
             };
 
             InitializeComponent();
 
 
-            // Add the StartCommand (should exist in any Plugin)
+            // Add the StartCommand (should exist in any PlugIn)
             Commands.Add(ActivatePlugin);
 
-            // Add the Stop Command (should exist in any Plugin)
+            // Add the Stop Command (should exist in any PlugIn)
             Commands.Add(TerminatePlugin);
 
-            // Add the change spelling command (an additional command)
+            // Add the change spelling command (an additional command, only for this special PlugIn)
             Commands.Add(new PluginCommand()
             {
                 CommandName = "Change Spelling",
@@ -91,24 +95,24 @@ namespace AMLEditorPlugin
                 CommandToolTip = "Change from Uppercase to Lowercase and vice versa"
             });
 
-            // Add the About Command (recommended to exist in any Plugin)
+            // Add the About Command (recommended to exist in any PlugIn)
             Commands.Add(new PluginCommand()
             {
                 CommandName = "About",
                 Command = AboutCommand,
-                CommandToolTip = "Information about this plugin"
+                CommandToolTip = "Information about this PlugIn"
             });
 
             this.IsActive = false;
         }
 
         /// <summary>
-        /// Occurs when the Plugin is activated (for example via the <see cref="StartCommand"/> ).
+        /// Occurs when the PlugIn is activated (for example via the <see cref="StartCommand"/> ).
         /// </summary>
         public event EventHandler PluginActivated;
 
         /// <summary>
-        /// Occurs when the Plugin is deactivated (some UserInteraction inside the Plugin or via the
+        /// Occurs when the PlugIn is deactivated (some UserInteraction inside the PlugIn or via the
         /// <see cref="StopCommand"/> ).
         /// </summary>
         public event EventHandler PluginTerminated;
@@ -128,9 +132,8 @@ namespace AMLEditorPlugin
         }
 
         /// <summary>
-        /// Gets the activate plugin.
+        /// Gets the Command to activate the PlugIn.
         /// </summary>
-        /// <value>The activate plugin.</value>
         public PluginCommand ActivatePlugin
         {
             get;
@@ -149,7 +152,7 @@ namespace AMLEditorPlugin
         }
 
         /// <summary>
-        /// Gets the List of commands, which are viewed in the Plugin Menue in the Host Application
+        /// Gets the List of commands, which are viewed in the PlugIn Menu in the Host Application
         /// </summary>
         /// <value>The command List.</value>
         public List<PluginCommand> Commands
@@ -159,7 +162,7 @@ namespace AMLEditorPlugin
         }
 
         /// <summary>
-        /// Gets the display name which is shown in the Plugin Menu in the Host Application
+        /// Gets the display name which is shown in the PlugIn Menu in the Host Application
         /// </summary>
         /// <value>The display name.</value>
         public string DisplayName
@@ -193,8 +196,8 @@ namespace AMLEditorPlugin
         }
 
         /// <summary>
-        /// Gets a value indicating whether this instance is reactive. Reactive Plugin will be
-        /// notified, when the actual CAEX-Object changes (Selection of the Treeview Item) <see
+        /// Gets a value indicating whether this instance is reactive. Reactive PlugIn will be
+        /// notified, when the actual CAEX-Object changes (Selection of the Tree view Item) <see
         /// cref="ChangeAMLFilePath"/> and <see cref="ChangeSelectedObject"/>.
         /// </summary>
         /// <value><c>true</c> if this instance is reactive; otherwise, <c>false</c>.</value>
@@ -203,23 +206,22 @@ namespace AMLEditorPlugin
             get { return true; }
         }
 
+
         /// <summary>
-        /// Gets a value indicating whether this instance is readonly. No CAEX Objects should be
-        /// modified by the Plugin, when set to true. If a Plugin is Readonly, the AmlEditor is
-        /// still enabled, when the Plugib is Active. If a Plugin is not readonly the Editor is
-        /// disbaled. Please note, that the Editor is disbaled, if only one of the currently
-        /// activated Plugins is not readonly.
+        /// Gets a value indicating whether this instance is read only. A Read only PlugIn should not
+        /// change any CAEX Objects.
         /// </summary>
-        /// <value><c>true</c> if this instance is readonly; otherwise, <c>false</c>.</value>
+        /// <value>
+        ///   <c>true</c> if this instance is read only; otherwise, <c>false</c>.
+        /// </value>
         public bool IsReadonly
         {
             get { return true; }
         }
 
         /// <summary>
-        /// Gets the terminate plugin.
+        /// Gets the terminate PlugIn command.
         /// </summary>
-        /// <value>The terminate plugin.</value>
         public PluginCommand TerminatePlugin
         {
             get;
@@ -227,37 +229,57 @@ namespace AMLEditorPlugin
         }
 
         /// <summary>
-        /// Changes the aml file path. This method is called for a reactive Plugin <see
-        /// cref="IsReactive"/> only. Those Plugins will be informed, when the loaded AutomationML
-        /// Document in the AMLEditor changes. This can only happen, if the plugin is readonly and
-        /// the AMLEditor is not disabled. The AMLEditor will be disabled for active Plugins, which
-        /// are not readonly.
+        /// Gets the initial dock position for the PlugIn window.
         /// </summary>
-        /// <param name="amlFilePath">The aml file path.</param>
-        /// <exception cref="System.NotImplementedException"></exception>
+        public DockPositionEnum InitialDockPosition => DockPositionEnum.DockRight;
+
+        /// <summary>
+        /// Gets or sets a value indicating whether this instance is automatic active when loaded.
+        /// This value can be initially set and will be defined by the user.
+        /// </summary>
+        public bool IsAutoActive { get; set; }
+
+        /// <summary>
+        /// Gets the package name which is used to download the PlugIn package from a NuGet feed. If a Package name
+        /// is defined, the AMLEditor can update PlugIn packages independently from its own update cycle.
+        /// </summary>
+        /// <value>
+        /// The package name.
+        /// </value>
+        public string PackageName => "";
+
+
+        /// <summary>
+        /// Changes the current amlFilePath. The Host Application will call this method when the
+        /// PlugIns <see cref="P:Aml.Editor.Plugin.Contracts.IAMLEditorPlugin.IsReactive" /> Property is set to true and the Currently opened
+        /// AutomationML File changes in the AMLEditor Host Application.
+        /// </summary>
+        /// <param name="amlFilePath">The Path to the current AML File in the AML Editor.</param>
         public void ChangeAMLFilePath(string amlFilePath)
         {
             this.HelloText.Text = "Hello " + System.IO.Path.GetFileName(amlFilePath);
         }
 
+
         /// <summary>
-        /// Changes the selected object. The Host Application will call this method when the Plugin
-        /// <see cref="IsReactive"/> is set to true and the Current Selection changes in the Host Application.
+        /// Changes the selected object. The Host Application will call this method when the PlugIns
+        /// <see cref="P:Aml.Editor.Plugin.Contracts.IAMLEditorPlugin.IsReactive" /> Property is set to true and the Current Selection changes in
+        /// the AMLEditor Host Application.
         /// </summary>
-        /// <param name="selectedObject">The selected object.</param>
-        public void ChangeSelectedObject(CAEX_ClassModel.CAEXBasicObject selectedObject)
+        /// <param name="selectedObject">The selected CAEX - object.</param>
+        public void ChangeSelectedObject(CAEXBasicObject selectedObject)
         {
             if (selectedObject != null)
             {
-                this.HelloText.Text = "Hello " + "\"" + selectedObject.Name() + "\"";
+                this.HelloText.Text = "Hello " + "\"" + ((selectedObject is CAEXObject caex) ? caex.Name : selectedObject.Node.Name.LocalName) + "\"";
             }
         }
 
         /// <summary>
         /// This Method is called from the AutomationML Editor to execute a specific command. The
         /// Editor can only execute those commands, which are identified by the <see
-        /// cref="PluginCommandsEnum"/> Enumeration. The Editor may Exceute the termination command
-        /// of the plugin, so here some preparations for a clean termination should be performed.
+        /// cref="PluginCommandsEnum"/> Enumeration. The Editor may execute the termination command
+        /// of the PlugIn, so here some preparations for a clean termination should be performed.
         /// </summary>
         /// <param name="command">    The command.</param>
         /// <param name="amlFilePath">The amlFilePath.</param>
@@ -272,14 +294,14 @@ namespace AMLEditorPlugin
         }
 
         /// <summary>
-        /// This Method is called on activation of a Plugin. The AutomationML Editor 'publishes' its
-        /// current state to the plugin, that is the Path of the loaded AutomationML Document and
+        /// This Method is called on activation of a PlugIn. The AutomationML Editor 'publishes' its
+        /// current state to the PlugIn, that is the Path of the loaded AutomationML Document and
         /// the currently selected AutomationML Object'. Please note, that the objects may be empty
         /// or null.
         /// </summary>
-        /// <param name="amlFilePath">   The aml file path, may be empty.</param>
+        /// <param name="amlFilePath">   The AML file path, may be empty.</param>
         /// <param name="selectedObject">The selected object, may be null.</param>
-        public void PublishAutomationMLFileAndObject(string amlFilePath, CAEX_ClassModel.CAEXBasicObject selectedObject)
+        public void PublishAutomationMLFileAndObject(string amlFilePath, CAEXBasicObject selectedObject)
         {
             if (!string.IsNullOrEmpty(amlFilePath))
                 this.HelloText.Text = "Hello " + System.IO.Path.GetFileName(amlFilePath);
@@ -288,7 +310,7 @@ namespace AMLEditorPlugin
 
             if (selectedObject != null)
             {
-                // ToDo Implementation of object specific handling
+                ChangeSelectedObject(selectedObject);
             }
         }
 
@@ -299,7 +321,7 @@ namespace AMLEditorPlugin
         /// <returns>true, if command can execute</returns>
         private bool AboutCommandCanExecute(object parameter)
         {
-            // Execution is always possible, also for inactive plugins
+            // Execution is always possible, also for inactive PlugIns
             return true;
         }
 
@@ -321,7 +343,7 @@ namespace AMLEditorPlugin
         /// <returns>true, if command can execute</returns>
         private bool InvertCaseCanExecute(object parameter)
         {
-            // the command can execute only if the plugin is active
+            // the command can execute only if the PlugIn is active
             return this.IsActive;
         }
 
@@ -358,8 +380,7 @@ namespace AMLEditorPlugin
         private void StartCommandExecute(object parameter)
         {
             this.IsActive = true;
-            if (PluginActivated != null)
-                PluginActivated(this, EventArgs.Empty);
+            PluginActivated?.Invoke(this, EventArgs.Empty);
         }
 
         /// <summary>
@@ -380,8 +401,8 @@ namespace AMLEditorPlugin
         private void StopCommandExecute(object parameter)
         {
             this.IsActive = false;
-            if (PluginTerminated != null)
-                PluginTerminated(this, EventArgs.Empty);
+            PluginTerminated?.Invoke(this, EventArgs.Empty);
         }
+
     }
 }

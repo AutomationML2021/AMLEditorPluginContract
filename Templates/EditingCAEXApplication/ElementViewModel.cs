@@ -13,12 +13,12 @@
 // ***********************************************************************
 using System;
 using System.ComponentModel;
-using CAEX_ClassModel;
+using Aml.Engine.CAEX;
 
 /// <summary>
-/// The AMLEditorPlugin namespace.
+/// The Aml.Editor.Plugin namespace.
 /// </summary>
-namespace AMLEditorPlugin
+namespace Aml.Editor.Plugin
 {
     /// <summary>
     /// Class ElementViewModel is used to represent an editable Element of the CAEX Document
@@ -73,7 +73,7 @@ namespace AMLEditorPlugin
 
             string tabs = new String('\t', hierarchyLevel);
 
-            Name = tabs + caex.Name.Value;
+            Name = tabs + caex.Name;
         }
 
         /// <summary>

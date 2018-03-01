@@ -7,9 +7,9 @@ using System.Windows;
 [assembly: AssemblyTitle("CreateElementPlugin")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Microsoft")]
-[assembly: AssemblyProduct("CreateElementPlugin")]
-[assembly: AssemblyCopyright("Copyright © Microsoft 2014")]
+[assembly: AssemblyCompany("AutomationML e.V.")]
+[assembly: AssemblyProduct("AutomationML")]
+[assembly: AssemblyCopyright("Copyright © AutomationML e.V. 2018")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -41,5 +41,5 @@ using System.Windows;
 //
 // Sie können alle Werte angeben oder die standardmäßigen Build- und Revisionsnummern übernehmen,
 // indem Sie "*" eingeben: [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("1.0.0.0")]
+[assembly: AssemblyVersion("1.1.0.0")]
 [assembly: AssemblyFileVersion("1.0.0.0")]

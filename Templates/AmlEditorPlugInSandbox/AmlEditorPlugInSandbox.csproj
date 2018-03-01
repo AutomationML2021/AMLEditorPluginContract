@@ -46,6 +46,9 @@
     <Reference Include="AML.Engine.Services, Version=1.0.4.27642, Culture=neutral, PublicKeyToken=449e3551ddfecd2b, processorArchitecture=MSIL">
       <HintPath>packages\Aml.Engine.1.0.5\lib\net47\AML.Engine.Services.dll</HintPath>
     </Reference>
+    <Reference Include="AML.Toolkit, Version=2.0.0.30735, Culture=neutral, PublicKeyToken=7fd1f1659bb149da, processorArchitecture=MSIL">
+      <HintPath>packages\Aml.Toolkit.2.0.0\lib\net47\AML.Toolkit.dll</HintPath>
+    </Reference>
     <Reference Include="CommonServiceLocator, Version=2.0.2.0, Culture=neutral, PublicKeyToken=489b6accfaf20ef0, processorArchitecture=MSIL">
       <HintPath>packages\CommonServiceLocator.2.0.2\lib\net47\CommonServiceLocator.dll</HintPath>
     </Reference>

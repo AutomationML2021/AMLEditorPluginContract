@@ -10,7 +10,7 @@
 // ***********************************************************************
 using System.Windows;
 
-namespace AMLEditorPlugin
+namespace Aml.Editor.Plugin
 {
     public partial class CreateElementUI : Window
     {
