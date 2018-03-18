@@ -37,17 +37,17 @@
     <ApplicationIcon>AMLIcon.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="AML.Editor.PluginContracts, Version=2.0.1.0, Culture=neutral, PublicKeyToken=60b97399e4e37abb, processorArchitecture=MSIL">
-      <HintPath>packages\Aml.Editor.Plugin.Contract.2.0.1\lib\net47\AML.Editor.PluginContracts.dll</HintPath>
+    <Reference Include="AML.Editor.PluginContracts, Version=2.0.2.0, Culture=neutral, PublicKeyToken=60b97399e4e37abb, processorArchitecture=MSIL">
+      <HintPath>packages\Aml.Editor.Plugin.Contract.2.0.2\lib\net47\AML.Editor.PluginContracts.dll</HintPath>
     </Reference>
-    <Reference Include="AML.Engine, Version=1.0.4.27642, Culture=neutral, PublicKeyToken=449e3551ddfecd2b, processorArchitecture=MSIL">
-      <HintPath>packages\Aml.Engine.1.0.5\lib\net47\AML.Engine.dll</HintPath>
+    <Reference Include="AML.Engine, Version=1.0.6.0, Culture=neutral, PublicKeyToken=449e3551ddfecd2b, processorArchitecture=MSIL">
+      <HintPath>packages\Aml.Engine.1.0.6\lib\net47\AML.Engine.dll</HintPath>
     </Reference>
-    <Reference Include="AML.Engine.Services, Version=1.0.4.27642, Culture=neutral, PublicKeyToken=449e3551ddfecd2b, processorArchitecture=MSIL">
-      <HintPath>packages\Aml.Engine.1.0.5\lib\net47\AML.Engine.Services.dll</HintPath>
+    <Reference Include="AML.Engine.Services, Version=1.0.6.0, Culture=neutral, PublicKeyToken=449e3551ddfecd2b, processorArchitecture=MSIL">
+      <HintPath>packages\Aml.Engine.1.0.6\lib\net47\AML.Engine.Services.dll</HintPath>
     </Reference>
-    <Reference Include="AML.Toolkit, Version=2.0.0.30735, Culture=neutral, PublicKeyToken=7fd1f1659bb149da, processorArchitecture=MSIL">
-      <HintPath>packages\Aml.Toolkit.2.0.0\lib\net47\AML.Toolkit.dll</HintPath>
+    <Reference Include="AML.Toolkit, Version=2.0.1.0, Culture=neutral, PublicKeyToken=7fd1f1659bb149da, processorArchitecture=MSIL">
+      <HintPath>packages\Aml.Toolkit.2.0.1\lib\net47\AML.Toolkit.dll</HintPath>
     </Reference>
     <Reference Include="CommonServiceLocator, Version=2.0.2.0, Culture=neutral, PublicKeyToken=489b6accfaf20ef0, processorArchitecture=MSIL">
       <HintPath>packages\CommonServiceLocator.2.0.2\lib\net47\CommonServiceLocator.dll</HintPath>
@@ -81,23 +81,23 @@
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
-    <Reference Include="Xceed.Wpf.AvalonDock, Version=3.2.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
-      <HintPath>packages\Extended.Wpf.Toolkit.3.2.0\lib\net40\Xceed.Wpf.AvalonDock.dll</HintPath>
+    <Reference Include="Xceed.Wpf.AvalonDock, Version=3.3.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
+      <HintPath>packages\Extended.Wpf.Toolkit.3.3.0\lib\net40\Xceed.Wpf.AvalonDock.dll</HintPath>
     </Reference>
-    <Reference Include="Xceed.Wpf.AvalonDock.Themes.Aero, Version=3.2.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
-      <HintPath>packages\Extended.Wpf.Toolkit.3.2.0\lib\net40\Xceed.Wpf.AvalonDock.Themes.Aero.dll</HintPath>
+    <Reference Include="Xceed.Wpf.AvalonDock.Themes.Aero, Version=3.3.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
+      <HintPath>packages\Extended.Wpf.Toolkit.3.3.0\lib\net40\Xceed.Wpf.AvalonDock.Themes.Aero.dll</HintPath>
     </Reference>
-    <Reference Include="Xceed.Wpf.AvalonDock.Themes.Metro, Version=3.2.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
-      <HintPath>packages\Extended.Wpf.Toolkit.3.2.0\lib\net40\Xceed.Wpf.AvalonDock.Themes.Metro.dll</HintPath>
+    <Reference Include="Xceed.Wpf.AvalonDock.Themes.Metro, Version=3.3.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
+      <HintPath>packages\Extended.Wpf.Toolkit.3.3.0\lib\net40\Xceed.Wpf.AvalonDock.Themes.Metro.dll</HintPath>
     </Reference>
-    <Reference Include="Xceed.Wpf.AvalonDock.Themes.VS2010, Version=3.2.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
-      <HintPath>packages\Extended.Wpf.Toolkit.3.2.0\lib\net40\Xceed.Wpf.AvalonDock.Themes.VS2010.dll</HintPath>
+    <Reference Include="Xceed.Wpf.AvalonDock.Themes.VS2010, Version=3.3.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
+      <HintPath>packages\Extended.Wpf.Toolkit.3.3.0\lib\net40\Xceed.Wpf.AvalonDock.Themes.VS2010.dll</HintPath>
     </Reference>
-    <Reference Include="Xceed.Wpf.DataGrid, Version=3.2.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
-      <HintPath>packages\Extended.Wpf.Toolkit.3.2.0\lib\net40\Xceed.Wpf.DataGrid.dll</HintPath>
+    <Reference Include="Xceed.Wpf.DataGrid, Version=3.3.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
+      <HintPath>packages\Extended.Wpf.Toolkit.3.3.0\lib\net40\Xceed.Wpf.DataGrid.dll</HintPath>
     </Reference>
-    <Reference Include="Xceed.Wpf.Toolkit, Version=3.2.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
-      <HintPath>packages\Extended.Wpf.Toolkit.3.2.0\lib\net40\Xceed.Wpf.Toolkit.dll</HintPath>
+    <Reference Include="Xceed.Wpf.Toolkit, Version=3.3.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
+      <HintPath>packages\Extended.Wpf.Toolkit.3.3.0\lib\net40\Xceed.Wpf.Toolkit.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>

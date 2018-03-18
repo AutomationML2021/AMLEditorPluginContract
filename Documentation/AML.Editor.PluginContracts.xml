@@ -199,6 +199,11 @@
             The initial position is the content host containing also the library views
             </summary>
     </member>
+    <member name="F:Aml.Editor.Plugin.Contracts.DockPositionEnum.DockContentMaximized">
+      <summary>
+            The initial position is the content host containing also the library views. The existing library views are set to the maximized window.
+            </summary>
+    </member>
     <member name="F:Aml.Editor.Plugin.Contracts.DockPositionEnum.Floating">
       <summary>
             The plugIn window is viewed as a floating window
@@ -206,13 +211,8 @@
     </member>
     <member name="T:Aml.Editor.Plugin.Contracts.IAMLEditorExternalsPlugin">
       <summary>
-        <markup>
-          <include item="SMCMissingTag">
-            <parameter>summary</parameter>
-            <parameter>T:Aml.Editor.Plugin.Contracts.IAMLEditorExternalsPlugin</parameter>
-          </include>
-        </markup>
-      </summary>
+            This interface can be implemented by plugIns, which are used to view external data, referenced by external data connectors in an AutomationML file or stream.
+            </summary>
     </member>
     <member name="P:Aml.Editor.Plugin.Contracts.IAMLEditorExternalsPlugin.IsExternalsViewer">
       <summary>
@@ -220,7 +220,7 @@
             with a selected external data source like a PLCopenXML document or a COLLADA document or any other
             content. An external viewer can restrict itself to a specific MIME type <see cref="P:Aml.Editor.Plugin.Contracts.IAMLEditorExternalsPlugin.MIMEType" />.
             If any external content is ready to be viewed, the AML Editors calls the
-            <see cref="!:ViewExternal(AttributeTypeType, Stream)"></see> or <see cref="!:ViewExternal(AttributeTypeType, string)"></see>.
+            <see cref="M:Aml.Editor.Plugin.Contracts.IAMLEditorExternalsPlugin.ViewExternal(Aml.Engine.AmlObjects.RefURIAttributeType,System.IO.Stream)"></see> or <see cref="M:Aml.Editor.Plugin.Contracts.IAMLEditorExternalsPlugin.ViewExternal(Aml.Engine.AmlObjects.RefURIAttributeType,System.String)"></see>.
             </summary>
     </member>
     <member name="P:Aml.Editor.Plugin.Contracts.IAMLEditorExternalsPlugin.MIMEType">
@@ -382,6 +382,11 @@
             Gets the initial dock position for the PlugIn window
             </summary>
     </member>
+    <member name="P:Aml.Editor.Plugin.Contracts.IAMLEditorView.PaneImage">
+      <summary>
+            Gets the image which should be used in the Header of the PlugIn window. If no image is defined the editor uses a default image.
+            </summary>
+    </member>
     <member name="T:Aml.Editor.Plugin.Contracts.IAMLEditorViewCollection">
       <summary>
              The Interface IAMLEditorViewCollection is used for a PlugIn, which can be embedded in
@@ -398,9 +403,64 @@
             will dock the added view at the dock position, defined by the view. 
             </summary>
     </member>
+    <member name="T:Aml.Editor.Plugin.Contracts.INotifyAMLDocumentLoad">
+      <summary>
+            This PlugIn interface can be implemented to get notifications when an AML document
+            is loaded or unloaded by the AutomationML editor.
+            </summary>
+    </member>
+    <member name="M:Aml.Editor.Plugin.Contracts.INotifyAMLDocumentLoad.ApplicationClose">
+      <summary>
+            Method called by the AutomationML editor, when the editor application is closed.
+            </summary>
+    </member>
+    <member name="M:Aml.Editor.Plugin.Contracts.INotifyAMLDocumentLoad.DocumentLoaded(Aml.Engine.CAEX.CAEXDocument)">
+      <summary>
+            Method called by the AutomationML editor, when a document is loaded.
+            </summary>
+      <param name="document">The loaded document</param>
+    </member>
+    <member name="M:Aml.Editor.Plugin.Contracts.INotifyAMLDocumentLoad.DocumentUnLoaded">
+      <summary>
+            Method called by the AutomationML editor, when the current document is unloaded.
+            </summary>
+    </member>
+    <member name="T:Aml.Editor.Plugin.Contracts.INotifyViewActivation">
+      <summary>
+            This interfaces is used to implement a PlugIn which will receive a notification with the <see cref="M:Aml.Editor.Plugin.Contracts.INotifyViewActivation.Activate(System.String)" /> 
+            method called, when the AMLEditor activates a view.
+            </summary>
+    </member>
+    <member name="M:Aml.Editor.Plugin.Contracts.INotifyViewActivation.Activate(System.String)">
+      <summary>
+            Is called, when the AMLEditor activates a view. 
+            </summary>
+      <param name="viewName">Name of the activated view. This is the display name shown in the view tab header.</param>
+    </member>
+    <member name="T:Aml.Editor.Plugin.Contracts.ISupportsSelection">
+      <summary>
+            This interface can be implemented by a PlugIn to get the AutomationML editor to select a
+            CAEX element in a tree view when the <see cref="E:Aml.Editor.Plugin.Contracts.ISupportsSelection.Selected" /> event is raised.
+            </summary>
+    </member>
+    <member name="E:Aml.Editor.Plugin.Contracts.ISupportsSelection.Selected">
+      <summary>
+            The event which is raised when an element should be selected.
+            </summary>
+    </member>
+    <member name="T:Aml.Editor.Plugin.Contracts.IToolBarIntegration">
+      <summary>
+            This interface can be implemented by PlugIns which provide <see cref="P:Aml.Editor.Plugin.Contracts.IToolBarIntegration.ToolBarCommands" />, integrated into the AMLEditors tool bar.
+            </summary>
+    </member>
+    <member name="P:Aml.Editor.Plugin.Contracts.IToolBarIntegration.ToolBarCommands">
+      <summary>
+            Gets the commands to be integrated into the tool bar. The commands shall specify an image source for the tool bar button.
+            </summary>
+    </member>
     <member name="T:Aml.Editor.Plugin.Contracts.PluginCommand">
       <summary>
-            Class PluginCommand is used to publish Commands from a Plugin to the AutomationML Editor.
+            Class PluginCommand is used to publish Commands from a PlugIn to the AutomationML Editor.
             </summary>
     </member>
     <member name="M:Aml.Editor.Plugin.Contracts.PluginCommand.#ctor">
@@ -415,10 +475,15 @@
             otherwise it is null or empty.
             </summary>
     </member>
+    <member name="P:Aml.Editor.Plugin.Contracts.PluginCommand.CommandIcon">
+      <summary>
+            Gets or sets the command icon which should be used, if the command is bound to a button control.
+            </summary>
+    </member>
     <member name="P:Aml.Editor.Plugin.Contracts.PluginCommand.CommandName">
       <summary>
             Gets or sets the name of the command used by the AutomationML Editor to show the Command
-            in the Plugin Menu
+            in the PlugIn Menu
             </summary>
     </member>
     <member name="P:Aml.Editor.Plugin.Contracts.PluginCommand.CommandToolTip">
@@ -525,6 +590,23 @@
       <summary>
             Gets or sets the identifier for the command, when the command is published by the plugin
             class, the Identifier can be set as an <see cref="T:Aml.Editor.Plugin.Contracts.PluginCommand" /></summary>
+    </member>
+    <member name="T:Aml.Editor.Plugin.Contracts.SelectionEventArgs">
+      <summary>
+            The event arguments for the selection event <see cref="E:Aml.Editor.Plugin.Contracts.ISupportsSelection.Selected" />.
+            </summary>
+    </member>
+    <member name="M:Aml.Editor.Plugin.Contracts.SelectionEventArgs.#ctor(Aml.Engine.CAEX.ICAEXWrapper)">
+      <summary>
+            Creates an instance of the <see cref="T:Aml.Editor.Plugin.Contracts.SelectionEventArgs" /> for the
+            specified <paramref name="selectedElement" />.
+            </summary>
+      <param name="selectedElement">This element should be selected by the AutomationML editor.</param>
+    </member>
+    <member name="P:Aml.Editor.Plugin.Contracts.SelectionEventArgs.SelectedElement">
+      <summary>
+            The element to select.
+            </summary>
     </member>
   </members>
 </doc>

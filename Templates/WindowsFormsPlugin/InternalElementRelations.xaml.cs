@@ -16,6 +16,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.Composition;
 using System.Windows.Controls;
+using System.Windows.Media.Imaging;
 
 /// <summary>
 /// The AMLEditorPlugin namespace.
@@ -228,6 +229,12 @@ namespace Aml.Editor.Plugin
         /// The package name.
         /// </value>
         public string PackageName => "";
+
+        /// <summary>
+        /// Gets the image which should be used in the Header of the PlugIn window. 
+        /// If no image is defined the editor uses a default image.
+        /// </summary>
+        public BitmapImage PaneImage => null;
 
 
         /// <summary>
