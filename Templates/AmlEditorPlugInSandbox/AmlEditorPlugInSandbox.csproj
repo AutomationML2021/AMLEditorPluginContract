@@ -37,17 +37,17 @@
     <ApplicationIcon>AMLIcon.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="AML.Editor.PluginContracts, Version=2.0.2.0, Culture=neutral, PublicKeyToken=60b97399e4e37abb, processorArchitecture=MSIL">
-      <HintPath>packages\Aml.Editor.Plugin.Contract.2.0.2\lib\net47\AML.Editor.PluginContracts.dll</HintPath>
+    <Reference Include="AML.Editor.PluginContracts, Version=2.0.3.0, Culture=neutral, PublicKeyToken=60b97399e4e37abb, processorArchitecture=MSIL">
+      <HintPath>packages\Aml.Editor.Plugin.Contract.2.0.3\lib\net47\AML.Editor.PluginContracts.dll</HintPath>
     </Reference>
-    <Reference Include="AML.Engine, Version=1.0.6.0, Culture=neutral, PublicKeyToken=449e3551ddfecd2b, processorArchitecture=MSIL">
-      <HintPath>packages\Aml.Engine.1.0.6\lib\net47\AML.Engine.dll</HintPath>
+    <Reference Include="AML.Engine, Version=1.0.9.0, Culture=neutral, PublicKeyToken=449e3551ddfecd2b, processorArchitecture=MSIL">
+      <HintPath>packages\Aml.Engine.1.0.9\lib\net47\AML.Engine.dll</HintPath>
     </Reference>
-    <Reference Include="AML.Engine.Services, Version=1.0.6.0, Culture=neutral, PublicKeyToken=449e3551ddfecd2b, processorArchitecture=MSIL">
-      <HintPath>packages\Aml.Engine.1.0.6\lib\net47\AML.Engine.Services.dll</HintPath>
+    <Reference Include="AML.Engine.Services, Version=1.0.9.0, Culture=neutral, PublicKeyToken=449e3551ddfecd2b, processorArchitecture=MSIL">
+      <HintPath>packages\Aml.Engine.1.0.9\lib\net47\AML.Engine.Services.dll</HintPath>
     </Reference>
-    <Reference Include="AML.Toolkit, Version=2.0.1.0, Culture=neutral, PublicKeyToken=7fd1f1659bb149da, processorArchitecture=MSIL">
-      <HintPath>packages\Aml.Toolkit.2.0.1\lib\net47\AML.Toolkit.dll</HintPath>
+    <Reference Include="AML.Toolkit, Version=2.0.2.0, Culture=neutral, PublicKeyToken=7fd1f1659bb149da, processorArchitecture=MSIL">
+      <HintPath>packages\Aml.Toolkit.2.0.2\lib\net47\AML.Toolkit.dll</HintPath>
     </Reference>
     <Reference Include="CommonServiceLocator, Version=2.0.2.0, Culture=neutral, PublicKeyToken=489b6accfaf20ef0, processorArchitecture=MSIL">
       <HintPath>packages\CommonServiceLocator.2.0.2\lib\net47\CommonServiceLocator.dll</HintPath>
@@ -162,6 +162,14 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Plugins\WindowsFormsPlugin.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Plugins\PlugInCallingCommands.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Plugins\PluginWithToolBar.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
